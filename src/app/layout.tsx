@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { APP_DESCRIPTION, APP_NAME } from '@/lib/constants'
+import { Header } from '@/components/header'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,6 +43,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Header />
           {children}
           <Toaster
             position='bottom-center'
