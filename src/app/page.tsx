@@ -4,7 +4,11 @@ import { QuickLinks } from '@/components/quick-links'
 import { UsersTable, type User } from '@/components/users-table'
 import { Activity, CreditCard, PoundSterling, Users } from 'lucide-react'
 
-import { getSubscriptionCount } from '@/server-actions/actions'
+import {
+  getSubscriptionBreakdown,
+  getSubscriptionCount
+} from '@/server-actions/actions'
+import { ChartPie } from '@/components/chart-pie'
 
 const users: User[] = [
   {
@@ -73,6 +77,7 @@ const users: User[] = [
 
 export default async function Home() {
   const subscriptions = await getSubscriptionCount()
+  const subsBreakdown = await getSubscriptionBreakdown()
 
   const metrics: Metric[] = [
     {
@@ -108,8 +113,14 @@ export default async function Home() {
         <AdBanner />
         <QuickLinks />
       </div>
-      <div>
-        <UsersTable users={users} />
+      <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>
+        <div className='lg:col-span-2'>
+          <div className='bg-card rounded-lg p-6 shadow-sm'>
+            <h2 className='mb-4 text-xl font-bold'>Recent Users</h2>
+            <UsersTable users={users} />
+          </div>
+        </div>
+        <ChartPie data={subsBreakdown} />
       </div>
     </main>
   )
