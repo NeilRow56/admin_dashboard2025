@@ -4,32 +4,7 @@ import { QuickLinks } from '@/components/quick-links'
 import { UsersTable, type User } from '@/components/users-table'
 import { Activity, CreditCard, PoundSterling, Users } from 'lucide-react'
 
-const metrics: Metric[] = [
-  {
-    title: 'Users',
-    value: 500,
-    change: '+60% from last month',
-    icon: <Users className='h-4 w-4' />
-  },
-  {
-    title: 'Subscriptions',
-    value: 300,
-    change: '+100% from last month',
-    icon: <PoundSterling className='h-4 w-4' />
-  },
-  {
-    title: 'Revenue',
-    value: '£200',
-    change: '+200% from last month',
-    icon: <CreditCard className='h-4 w-4' />
-  },
-  {
-    title: 'Last Month Subscriptions',
-    value: 30,
-    change: '+10 in the last week',
-    icon: <Activity className='h-4 w-4' />
-  }
-]
+import { getSubscriptionCount } from '@/server-actions/actions'
 
 const users: User[] = [
   {
@@ -96,7 +71,35 @@ const users: User[] = [
   }
 ]
 
-export default function Home() {
+export default async function Home() {
+  const subscriptions = await getSubscriptionCount()
+
+  const metrics: Metric[] = [
+    {
+      title: 'Users',
+      value: 500,
+      change: '+60% from last month',
+      icon: <Users className='h-4 w-4' />
+    },
+    {
+      title: 'Subscriptions',
+      value: subscriptions,
+      change: '+100% from last month',
+      icon: <PoundSterling className='h-4 w-4' />
+    },
+    {
+      title: 'Revenue',
+      value: '£200',
+      change: '+200% from last month',
+      icon: <CreditCard className='h-4 w-4' />
+    },
+    {
+      title: 'Last Month Subscriptions',
+      value: 30,
+      change: '+10 in the last week',
+      icon: <Activity className='h-4 w-4' />
+    }
+  ]
   return (
     <main className='container mx-auto space-y-5 p-4'>
       <h1 className='mb-6 text-3xl font-bold'>Dashboard</h1>
