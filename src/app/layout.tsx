@@ -6,6 +6,8 @@ import { Toaster } from '@/components/ui/sonner'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import { APP_DESCRIPTION, APP_NAME } from '@/lib/constants'
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
+import { AppSideBar } from '@/components/sidebar'
 import { Header } from '@/components/header'
 
 const geistSans = Geist({
@@ -43,20 +45,27 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
-          <Toaster
-            position='bottom-center'
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                error: 'text-red-600 bg-white border rounded-md p-2',
-                success: 'text-gray-900 bg-white border rounded-md p-2',
-                warning: 'text-yellow-700 bg-white border rounded-md p-2',
-                info: 'text-blue-700 bg-white border rounded-md p-2'
-              }
-            }}
-          />
+          <SidebarProvider>
+            <div className='flex h-screen w-full overflow-hidden'>
+              <AppSideBar />
+              <SidebarInset className='flex-1 overflow-auto'>
+                <Header />
+                {children}
+              </SidebarInset>
+            </div>
+            <Toaster
+              position='bottom-center'
+              toastOptions={{
+                unstyled: true,
+                classNames: {
+                  error: 'text-red-600 bg-white border rounded-md p-2',
+                  success: 'text-gray-900 bg-white border rounded-md p-2',
+                  warning: 'text-yellow-700 bg-white border rounded-md p-2',
+                  info: 'text-blue-700 bg-white border rounded-md p-2'
+                }
+              }}
+            />
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

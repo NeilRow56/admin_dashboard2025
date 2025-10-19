@@ -1,4 +1,6 @@
+import { AdBanner } from '@/components/add-banner'
 import { MetricCards, type Metric } from '@/components/metric-cards'
+import { QuickLinks } from '@/components/quick-links'
 import { UsersTable, type User } from '@/components/users-table'
 import { Activity, CreditCard, PoundSterling, Users } from 'lucide-react'
 
@@ -99,6 +101,10 @@ export default function Home() {
     <main className='container mx-auto space-y-5 p-4'>
       <h1 className='mb-6 text-3xl font-bold'>Dashboard</h1>
       <MetricCards metrics={metrics} />
+      <div className='flex flex-col space-y-4'>
+        <AdBanner />
+        <QuickLinks />
+      </div>
       <div>
         <UsersTable users={users} />
       </div>
